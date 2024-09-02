@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
-import { db } from "@vercel/postgres";
+import { db, Client } from "@vercel/postgres";
 import { invoices, customers, revenue, users } from "../lib/placeholder-data";
 
-// Remove the top-level await and move the client connection inside the functions
-async function seedUsers(client) {
+// Added explicit typing for the client parameter
+async function seedUsers(client: Client) {
   await client.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
   await client.query(`
     CREATE TABLE IF NOT EXISTS users (
@@ -31,7 +31,7 @@ async function seedUsers(client) {
   return insertedUsers;
 }
 
-async function seedInvoices(client) {
+async function seedInvoices(client: Client) {
   await client.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
 
   await client.query(`
@@ -60,7 +60,7 @@ async function seedInvoices(client) {
   return insertedInvoices;
 }
 
-async function seedCustomers(client) {
+async function seedCustomers(client: Client) {
   await client.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
 
   await client.query(`
@@ -88,7 +88,7 @@ async function seedCustomers(client) {
   return insertedCustomers;
 }
 
-async function seedRevenue(client) {
+async function seedRevenue(client: Client) {
   await client.query(`
     CREATE TABLE IF NOT EXISTS revenue (
       month VARCHAR(4) NOT NULL UNIQUE,
@@ -113,7 +113,7 @@ async function seedRevenue(client) {
 }
 
 export async function GET() {
-  const client = await db.connect();
+  const client: Client = await db.connect();
 
   try {
     await client.query("BEGIN");
