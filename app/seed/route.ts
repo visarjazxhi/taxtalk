@@ -1,8 +1,9 @@
 import bcrypt from "bcrypt";
 import { db } from "@vercel/postgres";
 import { invoices, customers, revenue, users } from "../lib/placeholder-data";
+import { NextRequest } from "next/server";
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   const client = await db.connect();
 
   try {
