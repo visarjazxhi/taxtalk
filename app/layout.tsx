@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import "@/app/ui/global.css";
 import { inter } from "./ui/fonts";
 
