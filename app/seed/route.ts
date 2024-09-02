@@ -25,10 +25,16 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     await client.sql`ROLLBACK`;
     console.error("Error seeding database:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      headers: { "Content-Type": "application/json" },
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({
+        error:
+          error instanceof Error ? error.message : "An unknown error occurred",
+      }),
+      {
+        headers: { "Content-Type": "application/json" },
+        status: 500,
+      }
+    );
   } finally {
     await client.release();
   }
