@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { db } from "@vercel/postgres";
+import { db, VercelPoolClient } from "@vercel/postgres";
 import { invoices, customers, revenue, users } from "../lib/placeholder-data";
 import { NextRequest } from "next/server";
 
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-async function seedUsers(client) {
+async function seedUsers(client: VercelPoolClient) {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`
     CREATE TABLE IF NOT EXISTS users (
@@ -65,7 +65,7 @@ async function seedUsers(client) {
   console.log(`Seeded ${insertedUsers.length} users`);
 }
 
-async function seedInvoices(client) {
+async function seedInvoices(client: VercelPoolClient) {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`
     CREATE TABLE IF NOT EXISTS invoices (
@@ -90,7 +90,7 @@ async function seedInvoices(client) {
   console.log(`Seeded ${insertedInvoices.length} invoices`);
 }
 
-async function seedCustomers(client) {
+async function seedCustomers(client: VercelPoolClient) {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`
     CREATE TABLE IF NOT EXISTS customers (
@@ -114,7 +114,7 @@ async function seedCustomers(client) {
   console.log(`Seeded ${insertedCustomers.length} customers`);
 }
 
-async function seedRevenue(client) {
+async function seedRevenue(client: VercelPoolClient) {
   await client.sql`
     CREATE TABLE IF NOT EXISTS revenue (
       month VARCHAR(4) NOT NULL UNIQUE,
