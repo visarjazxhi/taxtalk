@@ -2,5 +2,12 @@
   "files.autoSave": "onFocusChange",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "search.useGlobalIgnoreFiles": false
+  "search.useGlobalIgnoreFiles": false,
+  "workbench.tree.indent": 20,
+  "workbench.colorCustomizations": {
+    "tree.indentGuidesStroke": "#ff0000",
+    "tree.inactiveIndentGuidesStroke": "#45b8ac"
+  },
+  "workbench.tree.renderIndentGuides": "always",
+  "editor.mouseWheelZoom": true
 }
